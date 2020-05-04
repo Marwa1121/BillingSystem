@@ -15,7 +15,7 @@ public class Billing {
         List<Float> ratingCharges = new ArrayList<Float>();
         DataBase db = new DataBase();
         customers = db.getAllCustomers();
-        float totalRatingCharges = 0;
+        
         int monthlyFees;
         float recurringFees;
         float onTimeFees;
@@ -27,6 +27,7 @@ public class Billing {
         int sizeOfCustomers = customers.size();
         int sizeOfRatingCharges = ratingCharges.size();
         for (int i = 0; i < sizeOfCustomers; i++) {
+            float totalRatingCharges = 0;
             ratingCharges = db.getRatingChargesFromUDR(customers.get(i));
             for (int y = 0; i < sizeOfRatingCharges; y++) {
                 totalRatingCharges = totalRatingCharges + ratingCharges.get(y);
@@ -36,7 +37,7 @@ public class Billing {
                 recurringFees = db.getRecurringFees(profileId, 4);
                 onTimeFees = db.getOnTimeFees(profileId, 5);
                 totalBillWithoutTax = totalRatingCharges + monthlyFees + recurringFees + onTimeFees;
-                tax = totalBillWithoutTax * 0.1f;
+                tax =  (float)((totalBillWithoutTax) * 0.1);
                 totalBill = totalBillWithoutTax + tax;
                 customerId = db.getCustomerId(customers.get(i));
                 db.insertBillTable(totalBill, customerId, profileId);
