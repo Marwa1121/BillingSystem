@@ -25,10 +25,11 @@ public class Billing {
         float tax = 0;
         int profileId;
         int sizeOfCustomers = customers.size();
-        int sizeOfRatingCharges = ratingCharges.size();
         for (int i = 0; i < sizeOfCustomers; i++) {
             float totalRatingCharges = 0;
             ratingCharges = db.getRatingChargesFromUDR(customers.get(i));
+                    int sizeOfRatingCharges = ratingCharges.size();
+
             for (int y = 0; i < sizeOfRatingCharges; y++) {
                 totalRatingCharges = totalRatingCharges + ratingCharges.get(y);
             }
