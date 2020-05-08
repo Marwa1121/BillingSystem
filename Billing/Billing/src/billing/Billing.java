@@ -30,7 +30,7 @@ public class Billing {
             ratingCharges = db.getRatingChargesFromUDR(customers.get(i));
                     int sizeOfRatingCharges = ratingCharges.size();
 
-            for (int y = 0; i < sizeOfRatingCharges; y++) {
+            for (int y = 0; y< sizeOfRatingCharges; y++) {
                 totalRatingCharges = totalRatingCharges + ratingCharges.get(y);
             }
                 profileId = db.getProfileIdOfCustomer(customers.get(i));
