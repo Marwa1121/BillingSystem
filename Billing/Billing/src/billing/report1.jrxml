@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9746f87c-6375-4f2b-ae77-4c0585b2319a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="17"/>
+	<property name="ireport.y" value="530"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<subDataset name="New Dataset 1" uuid="f26d2250-970a-40ee-8da8-afd5ab19b45d">
+		<parameter name="pbill_id" class="java.lang.Integer"/>
+		<parameter name="pmsisdn" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[select  dial_b,duration_volume_msg,start_date,start_time,profile_name,rating_charges from udr,rate_plane where bill_id=$P{pbill_id} and dial_a= $P{pmsisdn} and rate_plane.profile_id=udr.profile_id]]>
+		</queryString>
+		<field name="dial_b" class="java.lang.String"/>
+		<field name="duration_volume_msg" class="java.lang.Double"/>
+		<field name="start_date" class="java.sql.Date"/>
+		<field name="start_time" class="java.sql.Time"/>
+		<field name="profile_name" class="java.lang.String"/>
+		<field name="rating_charges" class="java.lang.Double"/>
+	</subDataset>
+	<parameter name="p1" class="java.lang.Integer"/>
+	<parameter name="pCallFees" class="java.lang.Float"/>
+	<parameter name="pSMSFees" class="java.lang.Float"/>
+	<parameter name="pDataFees" class="java.lang.Float"/>
+	<parameter name="pdial_b" class="java.util.Collection"/>
+	<parameter name="pduration_volume_msg" class="java.util.Collection"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/aya/Downloads/Billing/BillingSystem/Billing/Billing/src/billing/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pbill_id" class="java.lang.Integer"/>
+	<parameter name="pmsisdn" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select bill.customer_id,total_cost,customer_name,msisdn,profile_name,address,monthly_fees from customer,bill,rate_plane where bill.customer_id= $P{p1} and customer.customer_id=$P{p1} and is_extracted=false and rate_plane.profile_id=customer.profile_id]]>
+	</queryString>
+	<field name="customer_id" class="java.lang.Integer"/>
+	<field name="total_cost" class="java.lang.Double"/>
+	<field name="customer_name" class="java.lang.String"/>
+	<field name="msisdn" class="java.lang.String"/>
+	<field name="profile_name" class="java.lang.String"/>
+	<field name="address" class="java.lang.String"/>
+	<field name="monthly_fees" class="java.lang.Integer"/>
+	<title>
+		<band height="194" splitType="Stretch">
+			<image>
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="296" y="0" width="259" height="194" uuid="61686771-6a80-4475-ab73-aec59129e1fa"/>
+				<imageExpression><![CDATA["/home/aya/Downloads/Billing/BillingSystem/images"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="210" height="75" backcolor="#F58402" uuid="3cd8e6ba-8d06-4995-a2bc-4bf24dce9bfe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="30"/>
+				</textElement>
+				<text><![CDATA[Bill Report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="662" splitType="Stretch">
+			<textField>
+				<reportElement mode="Transparent" x="337" y="90" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="37df156c-ae3d-4227-a904-895d5e33ddc5"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customer_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="90" width="138" height="20" uuid="77064796-1155-48dc-ac5a-bd7ecd08bede"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Customer Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="30" y="205" width="138" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="a752e8d8-1586-43e1-9401-44abb09df4cd"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Mobile Number:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="337" y="205" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="8d188dea-df06-4b8b-82e4-d25b6f4af6ab"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{msisdn}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="30" y="546" width="138" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="9605eba0-5015-45ed-9b0e-9ac3829f2a38"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Total Invoice:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="337" y="546" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="a7aeecb4-ec57-4f9b-8f6f-19ac41675d75"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_cost}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="30" y="137" width="138" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="5d2a3a66-44da-4f70-a4f2-46824fd25197"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Address:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="337" y="137" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="0a9945a7-d7c3-4d14-a6b7-bc844c968752"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="30" y="260" width="138" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="a4e4fc29-bcd8-43af-b299-395d9ec98ec5"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Profile Name:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="337" y="260" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="482ba328-3d77-4f47-bbfa-6d2588cddf76"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{profile_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="30" y="309" width="138" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="fab61164-1962-494e-b48e-4191d9186222"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[monthly_fees]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="30" y="358" width="138" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="4c063a62-03f1-4611-a984-382ef6582caa"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Total Call Fees]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="30" y="419" width="138" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="1a0a7405-e4ea-4803-af3a-4adc5ed00719"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Total SMS Fess]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="30" y="475" width="138" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="34cd4ce9-0741-4c76-a8a0-5ec4c52b841a"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Total Data Fees]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="337" y="358" width="100" height="20" uuid="c2acb30b-6153-45b9-81ec-8c7e60667b86"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pCallFees}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="335" y="419" width="100" height="20" uuid="5d6eeb8c-51d0-43cf-9052-6635d7b16ee7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pSMSFees}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="337" y="475" width="100" height="20" uuid="ee632453-cc38-43de-a813-9b400c9f91ed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pDataFees}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="337" y="309" width="100" height="20" uuid="e15dcb1a-f0bc-4c3a-b84e-5ebf2ec38d00"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{monthly_fees}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="322" height="60" uuid="bf2165c8-6a9f-46d5-ab58-198d813fb355"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Customer Information:]]></text>
+			</staticText>
+			<elementGroup>
+				<subreport>
+					<reportElement x="0" y="601" width="555" height="61" uuid="c71c9926-ff1f-402b-b1d9-4db7ea92ab2e"/>
+					<subreportParameter name="pDataFees">
+						<subreportParameterExpression><![CDATA[$P{pDataFees}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="pdial_b">
+						<subreportParameterExpression><![CDATA[$P{pdial_b}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="pCallFees">
+						<subreportParameterExpression><![CDATA[$P{pCallFees}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="p1">
+						<subreportParameterExpression><![CDATA[$P{p1}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="pduration_volume_msg">
+						<subreportParameterExpression><![CDATA[$P{pduration_volume_msg}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="pbill_id">
+						<subreportParameterExpression><![CDATA[$P{pbill_id}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="pSMSFees">
+						<subreportParameterExpression><![CDATA[$P{pSMSFees}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="pmsisdn">
+						<subreportParameterExpression><![CDATA[$P{pmsisdn}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "report1_subreport1.jasper"]]></subreportExpression>
+				</subreport>
+			</elementGroup>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="80">
+			<textField>
+				<reportElement x="435" y="8" width="80" height="20" uuid="cf22a02b-a8cf-4b37-bd94-d9c7539087b6"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="8" width="40" height="20" uuid="832f85dd-c44c-4217-9241-5585e5eee40e"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<summary>
+		<band height="65"/>
+	</summary>
+</jasperReport>

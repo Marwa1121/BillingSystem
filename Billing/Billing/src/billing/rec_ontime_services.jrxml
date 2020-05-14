@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rec_ontime_services" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="20f89aa1-bae9-4a6f-ab99-f8cf0191f526">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="pcustomer_id" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select rec_name,recurring_service.cost,recurring_service.rec_id,ontime_name,ontime_service.cost,ontime_service.ontime_id,recurring_customer.customer_id from recurring_service,recurring_customer,ontime_service,ontime_customer  where recurring_customer.rec_id=recurring_service.rec_id and ontime_customer.ontime_id=ontime_service.ontime_id  and recurring_customer.customer_id=$P{pcustomer_id}  and ontime_customer.customer_id=$P{pcustomer_id}]]>
+	</queryString>
+	<field name="rec_name" class="java.lang.String"/>
+	<field name="cost" class="java.lang.Double"/>
+	<field name="rec_id" class="java.lang.Integer"/>
+	<field name="ontime_name" class="java.lang.String"/>
+	<field name="ontime_id" class="java.lang.Integer"/>
+	<field name="customer_id" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="260" splitType="Stretch">
+			<staticText>
+				<reportElement x="7" y="6" width="100" height="20" uuid="c08de34a-25fb-4dd5-8227-c5af9d900f46"/>
+				<text><![CDATA[recurring services:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="30" width="100" height="20" uuid="7c0f7307-0ce4-4954-9986-1212010310ad"/>
+				<text><![CDATA[rec_name]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="22" y="106" width="100" height="20" uuid="94b43589-2c0c-4617-95c3-aff57d5a8309"/>
+				<textFieldExpression><![CDATA[$F{rec_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="195" y="30" width="100" height="20" uuid="94a0cd39-68e6-4821-b2ee-d28f2072272d"/>
+				<text><![CDATA[cost]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="185" y="106" width="100" height="20" uuid="1626b4fd-c4f0-41d1-981e-74c65124d916"/>
+				<textFieldExpression><![CDATA[$F{cost}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="152" width="100" height="20" uuid="8855ab3e-101e-4436-bc94-685c7a3a95c4"/>
+				<text><![CDATA[ontime services]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="184" width="100" height="20" uuid="07738cfe-0a0c-4ac1-9104-9f9ce5dcdd7f"/>
+				<text><![CDATA[ontime_name]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="37" y="240" width="100" height="20" uuid="2c4beafe-633a-45c3-be71-791e6e7e9106"/>
+				<textFieldExpression><![CDATA[$F{ontime_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
