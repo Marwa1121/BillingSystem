@@ -71,17 +71,18 @@ public class CDRParser {
             for (i = 0; i < newcdrs.length; i++) {
                 String sql = "INSERT INTO cdr (dial_a,dial_b,service_id,duration_volume_msg,start_date,start_time,external_charges,israting)" + " VALUES" + " (?,?,?,?,?,?,?,?)";
                 PreparedStatement statement = connection.prepareStatement(sql);
-
-                Scanner scanner = new Scanner(newcdrs[i]);
+                statement.setBoolean(8,false );
+                Scanner scanner = new Scanner(newcdrs[i]);    
                 Scanner valueScanner = null;
                 int index = 0;
-                while (scanner.hasNextLine()) {
+            while (scanner.hasNextLine()) {
                     valueScanner = new Scanner(scanner.nextLine());
                     valueScanner.useDelimiter(",");
+                    index = 0;
 
                     while (valueScanner.hasNext()) {
                         String data = valueScanner.next();
-
+                        
 //                        if (index == 0) {
 //                            int cdr_id = Integer.parseInt(data);
 //                            statement.setInt(1, cdr_id);
@@ -120,21 +121,22 @@ public class CDRParser {
 
                         }
                          
-                          else if (index == 7) {
-                            boolean israting = Boolean.parseBoolean(data);
-                            statement.setBoolean(8,israting );
+//                          else if (index == 7) {
+//                            boolean israting = Boolean.parseBoolean(data);
+//                            statement.setBoolean(8,israting );
 
-                        }
+//                        }
                          
                         index++;
                     }
+                                    statement.executeUpdate();
+
                 }
                 scanner.close();
                 Files.copy(Paths.get(newcdrs[i].toString()), Paths.get(dirtarget.toString() + "//" + "cdr" + j + ".cvs"));
-                statement.executeUpdate();
                 newcdrs[i].delete();
             }
-
+            
             if (i >= newcdrs.length) {
 
                 System.out.print("no new cdr \n");
